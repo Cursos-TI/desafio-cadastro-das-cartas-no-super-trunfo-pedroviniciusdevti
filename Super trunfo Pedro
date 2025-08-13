@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+struct Carta {
+    char estado;
+    int codigo;
+    unsigned long int populacao;
+    float area;
+    float pib;
+    int pontos_turisticos;
+    float densidade;
+    float pib_per_capita;
+    float super_poder;
+};
+
+char gerarEstado() {
+    return 'A' + rand() % 8; // De A a H
+}
+
+int gerarCodigo() {
+    return 1 + rand() % 4; // De 1 a 4
+}
+
+int main() {
+    srand(time(NULL));
+
+    struct Carta carta1, carta2;
+
+    // Carta 1
+    carta1.estado = gerarEstado();
+    carta1.codigo = gerarCodigo();
+    carta1.populacao = 50000 + rand() % 950000;
+    carta1.area = 100.0 + (rand() % 9000);
+    carta1.pib = 1.0 + (rand() % 500);
+    carta1.pontos_turisticos = 1 + rand() % 20;
+    carta1.densidade = carta1.populacao / carta1.area;
+    carta1.pib_per_capita = carta1.pib / carta1.populacao;
+    carta1.super_poder = carta1.populacao + carta1.area + carta1.pib + carta1.pontos_turisticos + carta1.pib_per_capita + (1.0 / carta1.densidade);
+
+    // Carta 2
+    carta2.estado = gerarEstado();
+    carta2.codigo = gerarCodigo();
+    carta2.populacao = 50000 + rand() % 950000;
+    carta2.area = 100.0 + (rand() % 9000);
+    carta2.pib = 1.0 + (rand() % 500);
+    carta2.pontos_turisticos = 1 + rand() % 20;
+    carta2.densidade = carta2.populacao / carta2.area;
+    carta2.pib_per_capita = carta2.pib / carta2.populacao;
+    carta2.super_poder = carta2.populacao + carta2.area + carta2.pib + carta2.pontos_turisticos + carta2.pib_per_capita + (1.0 / carta2.densidade);
+
+    printf("\n=== Carta 1 ===\n");
+    printf("Estado: %c\nCódigo: %d\nPopulação: %lu\nÁrea: %.2f km²\nPIB: %.2f bilhões\nPontos Turísticos: %d\nDensidade: %.2f\nPIB per Capita: %.6f\nSuper Poder: %.6f\n",
+           carta1.estado, carta1.codigo, carta1.populacao, carta1.area, carta1.pib, carta1.pontos_turisticos, carta1.densidade, carta1.pib_per_capita, carta1.super_poder);
+
+    printf("\n=== Carta 2 ===\n");
+    printf("Estado: %c\nCódigo: %d\nPopulação: %lu\nÁrea: %.2f km²\nPIB: %.2f bilhões\nPontos Turísticos: %d\nDensidade: %.2f\nPIB per Capita: %.6f\nSuper Poder: %.6f\n",
+           carta2.estado, carta2.codigo, carta2.populacao, carta2.area, carta2.pib, carta2.pontos_turisticos, carta2.densidade, carta2.pib_per_capita, carta2.super_poder);
+
+    printf("\n=== Resultado das Comparações (1 = Carta 1 vence, 0 = Carta 2 vence) ===\n");
+    printf("População: %d\n", carta1.populacao > carta2.populacao);
+    printf("Área: %d\n", carta1.area > carta2.area);
+    printf("PIB: %d\n", carta1.pib > carta2.pib);
+    printf("Pontos Turísticos: %d\n", carta1.pontos_turisticos > carta2.pontos_turisticos);
+    printf("Densidade: %d\n", carta1.densidade < carta2.densidade);
+    printf("PIB per Capita: %d\n", carta1.pib_per_capita > carta2.pib_per_capita);
+    printf("Super Poder: %d\n", carta1.super_poder > carta2.super_poder);
+
+    return 0;
+}
